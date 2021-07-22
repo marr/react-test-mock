@@ -9,9 +9,9 @@ describe('App', () => {
     })
     describe('Mobile', () => {
         beforeEach(() => {
-            jest.doMock('../src/utils', () => {
+            jest.mock('../src/utils', () => ({
                 isMobile: true
-            });
+            }));
         });
         test('renders', () => {
             render(<App />);
