@@ -1,1 +1,1 @@
-export const isMobile = console.log(window.innerHeight, window.innerWidth) || (window.innerHeight + window.innerWidth) < 1300;
+export const isMobile = (window.innerHeight + window.innerWidth) < 1300;

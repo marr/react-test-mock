@@ -1,19 +1,12 @@
 import React from 'react';
-import matchMediaPolyfill from 'mq-polyfill';
 import App from '../src';
 import { render, screen } from '@testing-library/react';
 
+
+
 describe('App', () => {
-    beforeAll(() => {
-        matchMediaPolyfill(window)
-        window.resizeTo = function resizeTo(width, height) {
-          Object.assign(this, {
-            innerWidth: width,
-            innerHeight: height,
-            outerWidth: width,
-            outerHeight: height,
-          }).dispatchEvent(new this.Event('resize'))
-        }
+    beforeEach(() => {
+        jest.resetModules();
     })
     test('renders', () => {
         render(<App />);
@@ -21,8 +14,10 @@ describe('App', () => {
     })
     describe('Mobile', () => {
         beforeEach(() => {
-            window.resizeTo(500, 700);
-        });
+            jest.mock('../src/utils', () => ({
+                isMobile: true
+            }));
+        })
         test('renders', () => {
             render(<App />);
             expect(screen.getByText('I am mobile.')).toBeInTheDocument();
